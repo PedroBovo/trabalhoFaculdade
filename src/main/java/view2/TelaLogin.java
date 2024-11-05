@@ -4,6 +4,7 @@
  */
 package view2;
 
+import java.awt.Color;
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -131,15 +132,29 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
         String senha = new String(txtSenha.getPassword());
-        
+        boolean hasError = false;
+    if(txtLogin.getText().trim().isEmpty()) {
+            txtLogin.setBorder(BorderFactory.createLineBorder(Color.RED));
+            hasError = true;
+    }
+     if (new String(txtSenha.getPassword()).isEmpty()) {
+        txtSenha.setBorder(BorderFactory.createLineBorder(Color.RED));
+        hasError = true;
+     }
+    
      if (txtLogin.getText().equals("Usuario") && senha.equals("1234")) {
             JOptionPane.showMessageDialog(null, "Bem vindo ao seu app");
             TelaPrincipal telaPrincipal = new TelaPrincipal();
             telaPrincipal.setVisible(true);
             this.dispose(); // Fecha a TelaLogin
-        } else {
-            JOptionPane.showMessageDialog(null, "ACESSO NEGADO");
-        }
+        } else{
+         hasError = true;
+     }
+      if (hasError) {
+        JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos corretamente para cadastrar o usuário.");
+        return;
+    }
+     
     }//GEN-LAST:event_btEntrarActionPerformed
 
     /**
