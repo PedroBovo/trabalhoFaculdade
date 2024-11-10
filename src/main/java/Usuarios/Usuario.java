@@ -23,6 +23,11 @@ public class Usuario {
         this.cpf = cpf;
         this.senha = senha;
     }
+    public Usuario(String Nome, int idade, String cpf) {
+        this.Nome = Nome;
+        this.idade = idade;
+        this.cpf = cpf;
+    }
     
     
 

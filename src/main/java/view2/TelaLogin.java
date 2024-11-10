@@ -146,7 +146,7 @@ public class TelaLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Bem vindo ao seu app");
             TelaPrincipal telaPrincipal = new TelaPrincipal();
             telaPrincipal.setVisible(true);
-            this.dispose(); // Fecha a TelaLogin
+            this.dispose(); 
         } else{
          hasError = true;
      }

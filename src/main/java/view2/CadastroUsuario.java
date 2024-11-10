@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Pedro
  */
 public class CadastroUsuario extends javax.swing.JInternalFrame {
-       ArrayList<Usuario> usuarios = new ArrayList<>();
+       ArrayList<Usuario> usuarios = new ArrayList();
        Usuario usuario = new Usuario();
        
     /**
@@ -87,6 +87,9 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
         txtIdade = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        btMostrarInfo = new javax.swing.JButton();
+        btAlterar = new javax.swing.JButton();
+        btDeletar = new javax.swing.JButton();
 
         setTitle("Cadastro Usuario");
 
@@ -133,6 +136,27 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        btMostrarInfo.setText("Mostrar todos");
+        btMostrarInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btMostrarInfoActionPerformed(evt);
+            }
+        });
+
+        btAlterar.setText("Modificar");
+        btAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAlterarActionPerformed(evt);
+            }
+        });
+
+        btDeletar.setText("Deletar");
+        btDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDeletarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -140,7 +164,14 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btMostrarInfo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btAlterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btDeletar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalvar))
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
@@ -175,7 +206,11 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(42, 42, 42)
-                        .addComponent(btnSalvar)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSalvar)
+                            .addComponent(btMostrarInfo)
+                            .addComponent(btAlterar)
+                            .addComponent(btDeletar))
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,7 +246,7 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCpfActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-       txtUsuario.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+    txtUsuario.setBorder(BorderFactory.createLineBorder(Color.GRAY));
     txtIdade.setBorder(BorderFactory.createLineBorder(Color.GRAY));
     txtCpf.setBorder(BorderFactory.createLineBorder(Color.GRAY));
     txtSenha.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -227,7 +262,7 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
         hasError = true;
     } else {
         try {
-            // Verifica se a idade é um número válido
+           
             Integer.parseInt(txtIdade.getText().trim());
         } catch (NumberFormatException e) {
             txtIdade.setBorder(BorderFactory.createLineBorder(Color.RED));
@@ -249,31 +284,31 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
     }
 
     try {
-        // Faz o parse da idade
+       
         int idade = Integer.parseInt(txtIdade.getText().trim());
 
-        // Cria um novo usuário
+        
         String usuarioNome = txtUsuario.getText().trim();
         String cpf = txtCpf.getText().trim();
         String senha = new String(txtSenha.getPassword());
 
         Usuario usuario = new Usuario(usuarioNome, idade, cpf, senha);
-        usuarios.add(usuario); // Adiciona o usuário à lista
+        usuarios.add(usuario);
+        
 
-        // Exibe mensagem de sucesso
+        
         JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
-        JOptionPane.showMessageDialog(null, "nome: " + usuario.getNome()+"\nIdade: " + usuario.getIdade()+"\n Cpf: " + usuario.getCpf());
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.addRow(new Object[]{usuarioNome, idade, cpf}); 
         
-        // Limpa os campos após o cadastro
+       
         txtUsuario.setText("");
         txtIdade.setText("");
         txtCpf.setText("");
         txtSenha.setText("");
 
     } catch (NumberFormatException e) {
-        // Exibe mensagem de erro se a idade não for um número válido
+       
         JOptionPane.showMessageDialog(null, "Por favor, insira uma idade válida.");
     }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -282,8 +317,94 @@ public class CadastroUsuario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdadeActionPerformed
 
+    private void btMostrarInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMostrarInfoActionPerformed
+        for (Usuario usuario:usuarios){
+            JOptionPane.showMessageDialog(null, "nome: " + usuario.getNome()+"\nIdade: " + usuario.getIdade()+"\n Cpf: " + usuario.getCpf());
+            
+        }
+    }//GEN-LAST:event_btMostrarInfoActionPerformed
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        int index = Integer.parseInt(JOptionPane.showInputDialog(null,"Digite o index que quer mudar"));
+        txtUsuario.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        txtIdade.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        txtCpf.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        txtSenha.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
+        boolean hasError = false;
+
+        if (txtUsuario.getText().trim().isEmpty()) {
+            txtUsuario.setBorder(BorderFactory.createLineBorder(Color.RED));
+            hasError = true;
+        }
+        if (txtIdade.getText().trim().isEmpty()) {
+            txtIdade.setBorder(BorderFactory.createLineBorder(Color.RED));
+            hasError = true;
+        } else {
+            try {
+
+                Integer.parseInt(txtIdade.getText().trim());
+            } catch (NumberFormatException e) {
+                txtIdade.setBorder(BorderFactory.createLineBorder(Color.RED));
+                hasError = true;
+            }
+        }
+        if (txtCpf.getText().trim().isEmpty()) {
+            txtCpf.setBorder(BorderFactory.createLineBorder(Color.RED));
+            hasError = true;
+        }
+        if (new String(txtSenha.getPassword()).isEmpty()) {
+            txtSenha.setBorder(BorderFactory.createLineBorder(Color.RED));
+            hasError = true;
+        }
+
+        if (hasError) {
+            JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos corretamente para cadastrar o usuário.");
+            return;
+        }
+
+        try {
+
+            int idade = Integer.parseInt(txtIdade.getText().trim());
+
+
+            String usuarioNome = txtUsuario.getText().trim();
+            String cpf = txtCpf.getText().trim();
+            String senha = new String(txtSenha.getPassword());
+
+            Usuario usuario = new Usuario(usuarioNome, idade, cpf, senha);
+            usuarios.set(index, usuario);
+            
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setValueAt(usuarioNome, index, 0); 
+            model.setValueAt(idade, index, 1);        
+            model.setValueAt(cpf, index, 2);
+            JOptionPane.showMessageDialog(null, "Usuário Modificado com sucesso!");
+       
+            txtUsuario.setText("");
+            txtIdade.setText("");
+            txtCpf.setText("");
+            txtSenha.setText("");
+
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(null, "Por favor, insira uma idade válida.");
+        }
+    }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
+        int index = Integer.parseInt(JOptionPane.showInputDialog(null,"Digite o index que quer deletar"));
+        usuarios.remove(index);
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.removeRow(index); 
+            
+    }//GEN-LAST:event_btDeletarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAlterar;
+    private javax.swing.JButton btDeletar;
+    private javax.swing.JButton btMostrarInfo;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
