@@ -148,10 +148,12 @@ public class TelaLogin extends javax.swing.JFrame {
             telaPrincipal.setVisible(true);
             this.dispose(); 
         } else{
-         hasError = true;
+         JOptionPane.showMessageDialog(null, "Usuario ou senha invalidos");
      }
+         
+     
       if (hasError) {
-        JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos corretamente para cadastrar o usuário.");
+        JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos corretamente para entrar");
         return;
     }
      

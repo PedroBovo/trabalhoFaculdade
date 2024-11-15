@@ -13,19 +13,22 @@ public class Usuario {
     private String Nome;
     private int idade;
     private String cpf;
+    private String sexo;
     private String senha;
     
     public Usuario(){}
 
-    public Usuario(String Nome, int idade, String cpf, String senha) {
+    public Usuario(String Nome, int idade, String cpf,String sexo, String senha) {
         this.Nome = Nome;
         this.idade = idade;
         this.cpf = cpf;
+        this.sexo = sexo;
         this.senha = senha;
     }
-    public Usuario(String Nome, int idade, String cpf) {
+    public Usuario(String Nome, int idade,String sexo, String cpf) {
         this.Nome = Nome;
         this.idade = idade;
+        this.sexo = sexo;
         this.cpf = cpf;
     }
     
@@ -53,6 +56,22 @@ public class Usuario {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
     
     
